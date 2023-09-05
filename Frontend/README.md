@@ -1,8 +1,8 @@
-# KEA - Fall - 2023 Semester: 2nd Assignment
+# KEA - Fall - 2023
 
-## CRUD/REST APPLICATION
+## 2nd Semester - 1st Assignment
 
-### MUSIC ARTISTS
+### CRUD/REST APPLICATION - MUSIC ARTISTS
 
 ## Pre-Requirements
 
