@@ -15,19 +15,23 @@ export async function createArtist_db(newArtist){
 
     artistsJson.push(newArtist);
     fs.writeFile('./local_db/artists.json', JSON.stringify(artistsJson));
+
+    return newArtist;
 }
 
-export async function updateArtist_db(artistId, updatedArtist){
+export async function updateArtist_db(updatedArtist){
     console.log('update artist in db');
 
     const artists = await fs.readFile('./local_db/artists.json');
     const artistsJson = JSON.parse(artists);
-
-    const artistToUpdate = artistsJson.find(artist => artist.id === artistId);
+    console.log(updatedArtist);
+    const artistToUpdate = artistsJson.find(artist => artist.id === updatedArtist.id);
     const index = artistsJson.indexOf(artistToUpdate);
     artistsJson.splice(index, 1, updatedArtist);
 
     fs.writeFile('./local_db/artists.json', JSON.stringify(artistsJson));
+
+    return updatedArtist;
 }
 
 export async function deleteArtist_db(artistId){
