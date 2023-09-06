@@ -1,5 +1,6 @@
-import deleteArtist from "../services/deleteArtist.js";
-import selectArtist from "../helpers/selectArtist.js";
+import selectArtist  from "../helpers/selectArtist.js";
+import { deleteArtist } from "../services/artists.services.js";
+
 
 export default function artistCard(artist){
 
@@ -29,7 +30,7 @@ export default function artistCard(artist){
     );
     document
         .querySelector("#artist-grid article:last-child .btn-delete-artist")
-        .addEventListener("click", () => deleteArtist(artist.id));
+        .addEventListener("click", () => deleteArtist(artist));
     document
         .querySelector("#artist-grid article:last-child .btn-update-artist")
         .addEventListener("click", () => selectArtist(artist));

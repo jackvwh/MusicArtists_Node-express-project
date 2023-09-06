@@ -9,7 +9,6 @@ const endpoint = 'http://localhost:3000';
 export async function readArtists() {
     console.log('readArtists');
     const response = await fetch(`${endpoint}/artists`);
-    console.log(response);
     const artists = await response.json();
     return artists;
 }
