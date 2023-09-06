@@ -1,6 +1,4 @@
 // import 'dotenv/config'
-import scrollToTop from '../helpers/scrollToTop.js'
-import refreshArtistsList from '../helpers/refreshArtistsList.js';
 import getGenres from '../helpers/getGenres.js';
 import getLabels from '../helpers/getLabels.js';
 import showArtist from '../helpers/showArtist.js';
@@ -60,16 +58,24 @@ export async function createArtist(event) {
 
 // update artist
 export async function updateArtist(event) {
+    console.log('updateArtist');
     event.preventDefault();
+
     const name = event.target.name.value;
-    const title = event.target.title.value;
-    const mail = event.target.mail.value;
+    const birthdate = event.target.birthdate.value;
+    const activeSince = event.target.activeSince.value;
     const image = event.target.image.value;
+    const shortDescription = event.target.shortDescription.value;
+    const website = event.target.website.value;
+
+    const genres = getGenres();
+    const labels = getLabels();
+
     // update user
-    const userToUpdate = { name, title, mail, image };
+    const userToUpdate = { name, birthdate, activeSince, image, shortDescription, website, genres, labels};
     const userAsJson = JSON.stringify(userToUpdate);
 
-    const response = await fetch(`${endpoint}/users/${selectedArtist.id}`, {
+    const response = await fetch(`${endpoint}/artists/${event.target.id}`, {
         method: "PUT",
         body: userAsJson,
         headers: {
@@ -77,9 +83,7 @@ export async function updateArtist(event) {
         }
     });
     if (response.ok) {
-        // if success, update the users grid
-        refreshArtistsList();
-        // and scroll to top
+        showArtist(event.target.id);
     }
 }
 
@@ -90,7 +94,7 @@ export async function deleteArtist(id) {
         method: "DELETE"
     });
     if (response.ok) {
-        // if success, update the users grid
+        
         document.querySelector(`#${id}`).remove();
     }
 }

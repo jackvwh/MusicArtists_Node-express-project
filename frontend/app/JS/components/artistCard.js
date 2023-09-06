@@ -1,12 +1,10 @@
 import selectArtist  from "../helpers/selectArtist.js";
 import { deleteArtist } from "../services/artists.services.js";
-
-
 export default function artistCard(artist){
 
     document.querySelector("#artist-grid").insertAdjacentHTML(
         "beforeend", /*html*/ `
-        <article>
+        <article id="${artist.id}">
             <img src="${artist.image}">
             <h2>Name: ${artist.name}</h2>
             <h3>Active since: ${artist.activeSince}</h3>

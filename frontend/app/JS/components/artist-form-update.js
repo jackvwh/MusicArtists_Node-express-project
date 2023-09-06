@@ -1,7 +1,8 @@
-import { createArtist } from "../services/artists.services.js";
+import selectArtist from "../helpers/selectArtist.js";
+import { updateArtist } from "../services/artists.services.js";
 
-export function artistFormCreate() {
-    console.log("artistFormCreate");
+export function artistFormUpdate() {
+    console.log("artistForm");
 
     document.querySelector("#dialog").insertAdjacentHTML("afterbegin", /*html*/ `
             <h2>Create Artist</h2>
@@ -24,10 +25,10 @@ export function artistFormCreate() {
                 <label for="website">Website</label>
                 <input type="url" name="website" id="website" required>
 
-            <fieldset> 
+                <fieldset> 
                     <legend>Genres</legend>
                     <div>
-                        <input type="checkbox" name="rap" id="rap">
+                        <input type="checkbox" name="rap" id="rap" >
                         <label for="rap">Rap</label>
                     </div>
                     <div>
@@ -91,8 +92,8 @@ export function artistFormCreate() {
                 <fieldset> 
                     <legend>Labels</legend>
                     <div>
-                        <input type="checkbox" name="xlRecordings" id="xlRecordings">
-                        <label for="xlRecordings"></label>
+                        <input type="checkbox" name="xlRecordings" id="xlRecordings" >
+                        <label for="xlRecordings">XL Recordings</label>
                     </div>
                     <div>
                         <input type="checkbox" name="columbiaRecords" id="columbiaRecords" >
@@ -136,6 +137,7 @@ export function artistFormCreate() {
                     </div>
                 </fieldset>
 
+
                 <button type="submit">Submit</button>
                 <button type="reset">Reset</button>
                 <button type="button" id="btn-close">Close</button>
@@ -147,8 +149,8 @@ export function artistFormCreate() {
         document.querySelector("#dialog").close();
     }
     );
-    document.querySelector("#artist-form").addEventListener("submit", createArtist);
-    document.querySelector("#artist-form").addEventListener("reset", () => { document.querySelector("#dialog").innerHTML = "";});
+    document.querySelector("#artist-form").addEventListener("submit", updateArtist);
+    document.querySelector("#artist-form").addEventListener("reset", selectArtist);
 
     document.querySelector("#dialog").showModal();
 }
