@@ -1,6 +1,9 @@
 // import 'dotenv/config'
 import scrollToTop from '../helpers/scrollToTop.js'
 import refreshArtistsList from '../helpers/refreshArtistsList.js';
+import getGenres from '../helpers/getGenres.js';
+import getLabels from '../helpers/getLabels.js';
+import showArtist from '../helpers/showArtist.js';
 
 // const endpoint = process.env.ENDPOINT_URL;
 const endpoint = 'http://localhost:3000';
@@ -28,11 +31,17 @@ export async function createArtist(event) {
     event.preventDefault();
 
     const name = event.target.name.value;
-    const title = event.target.title.value;
-    const mail = event.target.mail.value;
+    const birthdate = event.target.birthdate.value;
+    const activeSince = event.target.activeSince.value;
     const image = event.target.image.value;
+    const shortDescription = event.target.shortDescription.value;
+    const website = event.target.website.value;
+
+    const genres = getGenres();
+    const labels = getLabels();
+    
     // create a new artist
-    const newArtist = { name, title, mail, image };
+    const newArtist = { name, birthdate, activeSince, image, shortDescription, website, genres, labels};
     const userAsJson = JSON.stringify(newArtist);
     const response = await fetch(`${endpoint}/artists`, {
         method: "POST",
@@ -42,11 +51,10 @@ export async function createArtist(event) {
         }
     });
 
+    console.log(response);
+
     if (response.ok) {
-        // if success, update the users grid
-        refreshArtistsList();
-        // and scroll to top
-        scrollToTop();
+        showArtist(newArtist.name);
     }
 }
 
@@ -72,7 +80,6 @@ export async function updateArtist(event) {
         // if success, update the users grid
         refreshArtistsList();
         // and scroll to top
-        scrollToTop();
     }
 }
 
@@ -84,6 +91,6 @@ export async function deleteArtist(id) {
     });
     if (response.ok) {
         // if success, update the users grid
-        refreshArtistsList();
+        document.querySelector(`#${id}`).remove();
     }
 }

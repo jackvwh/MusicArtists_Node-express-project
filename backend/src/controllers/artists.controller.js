@@ -11,11 +11,8 @@ export async function createArtist(req, res){
     console.log('createArtist');
 
     const newArtist = req.body;
-    newArtist.id = Date.now();
-    console.log(newArtist);
-
-    const artist = createArtist_db(newArtist);
-    console.log(artist);
+    newArtist.id = Date.now(); 
+    const artist = await createArtist_db(newArtist);
 
     res.json(artist);
 }
@@ -25,12 +22,13 @@ export async function updateArtist(req, res){
 
     const artistId = req.params.id;
     const id = parseInt(artistId);
+    console.log(id);
 
     const updatedArtist = req.body;
     updatedArtist.id = id;
-    console.log(updatedArtist);
+    console.log("upArtist", updatedArtist);
 
-    const artist = updateArtist_db(updatedArtist);
+    const artist = await updateArtist_db(updatedArtist);
     console.log(artist);
 
     res.json(artist);
@@ -41,8 +39,7 @@ export async function deleteArtist(req, res){
     const artistId = req.params.id;
     const id = parseInt(artistId);
 
-    const artist = deleteArtist_db(id);
-    console.log(artist);
+    const artist = await deleteArtist_db(id);
 
-    res.json(artistToDelete);
+    res.json(artist);
 }
