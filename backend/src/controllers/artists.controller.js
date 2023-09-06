@@ -1,42 +1,39 @@
-import fs from 'fs/promises'; 
+import { createArtist_db, deleteArtist_db, readArtists_db, updateArtist_db } from "../services/artists.services.js";
 
 export async function readAllArtists(req, res){
     console.log('readAllArtists');
-    const artists = await fs.readFile('./local_db/artists.json');
-    const artistsJson = JSON.parse(artists);
-    artistsJson.sort((a, b) => a.name.localeCompare(b.name));
-    res.send(artistsJson);
+    const artists = await readArtists_db();
+    artists.sort((a, b) => a.name.localeCompare(b.name));
+    res.send(artists);
 }
 
 export async function createArtist(req, res){
     console.log('createArtist');
+
     const newArtist = req.body;
     newArtist.id = Date.now();
     console.log(newArtist);
 
-    const artists = await fs.readFile('./local_db/artists.json');   
-    const artistsJson = JSON.parse(artists);
+    const artist = createArtist_db(newArtist);
+    console.log(artist);
 
-    artistsJson.push(newArtist);
-    fs.writeFile('./local_db/artists.json', JSON.stringify(artistsJson));
-    res.json(newArtist);
+    res.json(artist);
 }
 
 export async function updateArtist(req, res){
     console.log('updateArtist');
+
     const artistId = req.params.id;
     const id = parseInt(artistId);
+
     const updatedArtist = req.body;
+    updatedArtist.id = id;
+    console.log(updatedArtist);
 
-    const data = await fs.readFile('./local_db/artists.json');
-    const artists = JSON.parse(data);
+    const artist = updateArtist_db(updatedArtist);
+    console.log(artist);
 
-    const artistToUpdate = artists.find(artist => artist.id === id);
-    const index = artists.indexOf(artistToUpdate);
-    artists.splice(index, 1, updatedArtist);
-
-    fs.writeFile('./local_db/artists.json', JSON.stringify(artists));
-    res.json(updatedArtist);
+    res.json(artist);
 }
 
 export async function deleteArtist(req, res){
@@ -44,13 +41,8 @@ export async function deleteArtist(req, res){
     const artistId = req.params.id;
     const id = parseInt(artistId);
 
-    const data = await fs.readFile('./local_db/artists.json');
-    const artists = JSON.parse(data);
+    const artist = deleteArtist_db(id);
+    console.log(artist);
 
-    const artistToDelete = artists.find(artist => artist.id === id);
-    const index = artists.indexOf(artistToDelete);
-    artists.splice(index, 1);
-
-    fs.writeFile('./local_db/artists.json', JSON.stringify(artists));
     res.json(artistToDelete);
 }
