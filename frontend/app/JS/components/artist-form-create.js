@@ -137,7 +137,6 @@ export function artistFormCreate() {
                 </fieldset>
 
                 <button type="submit">Submit</button>
-                <button type="reset">Reset</button>
                 <button type="button" id="btn-close">Close</button>
             </form>
     `);
@@ -148,7 +147,5 @@ export function artistFormCreate() {
     }
     );
     document.querySelector("#artist-form").addEventListener("submit", createArtist);
-    document.querySelector("#artist-form").addEventListener("reset", () => { document.querySelector("#dialog").innerHTML = "";});
-
     document.querySelector("#dialog").showModal();
 }

@@ -139,7 +139,6 @@ export function artistFormUpdate() {
 
 
                 <button type="submit">Submit</button>
-                <button type="reset">Reset</button>
                 <button type="button" id="btn-close">Close</button>
             </form>
     `);
@@ -150,7 +149,6 @@ export function artistFormUpdate() {
     }
     );
     document.querySelector("#artist-form").addEventListener("submit", updateArtist);
-    document.querySelector("#artist-form").addEventListener("reset", selectArtist);
 
     document.querySelector("#dialog").showModal();
 }

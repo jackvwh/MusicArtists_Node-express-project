@@ -28,6 +28,8 @@ export async function createArtist(event) {
     console.log("createArtist");
     event.preventDefault();
 
+    document.querySelector("#dialog").closeModal();
+
     const name = event.target.name.value;
     const birthdate = event.target.birthdate.value;
     const activeSince = event.target.activeSince.value;
@@ -60,6 +62,8 @@ export async function createArtist(event) {
 export async function updateArtist(event) {
     console.log('updateArtist');
     event.preventDefault();
+
+    document.querySelector("#dialog").closeModal();
 
     const name = event.target.name.value;
     const birthdate = event.target.birthdate.value;
