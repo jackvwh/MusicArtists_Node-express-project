@@ -1,7 +1,7 @@
 // import 'dotenv/config'
+import { refreshFavoriteArtistsList, showArtist } from '../helpers/artists.helpers.js';
 import getGenres from '../helpers/getGenres.js';
 import getLabels from '../helpers/getLabels.js';
-import showArtist from '../helpers/showArtist.js';
 
 // const endpoint = process.env.ENDPOINT_URL;
 const endpoint = 'http://localhost:3000';
@@ -63,7 +63,7 @@ export async function updateArtist(event) {
     console.log('updateArtist');
     event.preventDefault();
 
-    document.querySelector("#dialog").closeModal();
+    document.querySelector("#dialog").close();
 
     const name = event.target.name.value;
     const birthdate = event.target.birthdate.value;
@@ -87,6 +87,7 @@ export async function updateArtist(event) {
         }
     });
     if (response.ok) {
+        response.status(200).json({ message: "Artist updated successfully" });
         showArtist(event.target.id);
     }
 }
@@ -98,7 +99,31 @@ export async function deleteArtist(id) {
         method: "DELETE"
     });
     if (response.ok) {
-        
+        response.status(200).json({ message: "Artist deleted successfully" });
         document.querySelector(`#${id}`).remove();
+    }
+}
+
+// favorite artists
+export async function favoriteArtist(artist) {
+    console.log('favoriteArtist');
+    console.log(artist);
+    let favorite = false;
+        if (artist.favorite) {
+            favorite = false;
+        }
+        else{
+            favorite = true;
+        }
+    const response = await fetch(`${endpoint}/artists/${artist.id}`, {
+        method: "PUT",
+        body: JSON.stringify({ ...artist, favorite: `${favorite}`}),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    if (response.ok) {
+        response.status(200).json({ message: "Artist added to favourites" });
+        refreshFavoriteArtistsList();
     }
 }
