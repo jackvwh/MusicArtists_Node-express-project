@@ -1,6 +1,5 @@
-import createArtist from "./services/createArtist.js";
-import updateArtist from "./services/updateArtist.js";
 import refreshArtistsList from "./helpers/refreshArtistsList.js";
+import { createArtist, updateArtist } from "./services/artists.services.js";
 
 window.addEventListener("load", initApp);
 
