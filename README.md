@@ -27,7 +27,8 @@ Follow these steps to set up and run the project:
 
    cd MusicArtists_Node-express-project
 
-3. Install project root dependencies by running:
+3. Install project root dependencies by running. 
+   Not necessary to run backend server - jump to step 4
    
       npm i
 
