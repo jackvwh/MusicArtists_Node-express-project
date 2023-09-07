@@ -178,3 +178,113 @@
     display: block;
     background: var(--white);
   }
+
+  /* Style for the form container */
+#dialog-create {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the form title */
+#dialog-create h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Style for labels */
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Style for text input fields */
+input[type="text"],
+input[type="url"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Style for the form grid container */
+
+/* Style for fieldsets */
+fieldset {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+/* Style for legends in fieldset */
+legend {
+  font-weight: bold;
+}
+
+/* Style for checkboxes */
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Style for buttons */
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+/* Style for close button */
+#btn-close {
+  background-color: #dc3545;
+}
+
+/* Clear floats for buttons */
+button[type="submit"],
+button[type="reset"],
+button[type="button"] {
+  clear: both;
+}
+
+/* Hover effect on buttons */
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Center the buttons */
+button[type="submit"],
+button[type="reset"],
+button[type="button"],
+#btn-close {
+  display: block;
+  margin: 20px auto;
+}
+
+/* Responsive design for small screens */
+@media screen and (max-width: 600px) {
+  #dialog-create {
+      width: 100%;
+  }
+  
+  /* Change the grid layout to a single column on small screens */
+  #form-create {
+      grid-template-columns: 1fr;
+  }
+  fieldset {
+      grid-template-columns: 1fr;
+  }
+}
