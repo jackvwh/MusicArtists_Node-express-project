@@ -23,36 +23,23 @@ Follow these steps to set up and run the project:
    - **SSH**: `git clone git@github.com:jackvwh/MusicArtists_Node-express-project.git`
    - **HTTPS**: `git clone https://github.com/jackvwh/MusicArtists_Node-express-project.git`
 
-2. Navigate to the project root folder in your terminal:
-
-   cd MusicArtists_Node-express-project
-
-3. Install project root dependencies by running. 
-   Not necessary to run backend server - jump to step 4
-   
-      npm i
-
 ## Run backend server
 
-4. Navigate to the "backend" folder in your terminal:
+2. Navigate to the "backend" folder in your terminal:
 
-   cd backend
-
-5. Install server dependencies by running:
-
+3. Install server dependencies by running:
+   ```bash
    npm i
 
-6. Start the backend server:
+4. Start the backend server:
 
    - To start the server: `npm start`
    - To start the server with [nodemon](https://nodemon.io/): `npm run dev`
 
 ## Run frontend
 
-7. Next, navigate to the "frontend" folder:
+5. Next, navigate to the "frontend" folder:
 
-   cd frontend
-
-8. Launch the frontend using the Live Server extension in Visual Studio Code.
+6. Launch the frontend using the Live Server extension in Visual Studio Code.
 
 You are now ready to explore and use the CRUD/REST application for managing music artists. Enjoy your project experience!
