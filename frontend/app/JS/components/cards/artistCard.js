@@ -18,7 +18,6 @@ function createStarSVG() {
   }
 
 export default function artistCard(artist){
-
     const artistCard = /*html*/ `
           <article id="${artist.id}">
             <img src="${artist.image}">

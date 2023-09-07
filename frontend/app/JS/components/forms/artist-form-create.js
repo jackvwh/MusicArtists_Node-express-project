@@ -1,8 +1,7 @@
 import { createArtist } from "../../services/artists.services.js";
 
 export function artistFormCreate() {
-    console.log("artistFormCreate");
-
+    document.querySelector("#dialog").innerHTML = "";
     document.querySelector("#dialog").insertAdjacentHTML("afterbegin", /*html*/ `
             <h2>Create Artist</h2>
             <form id="artist-form">   

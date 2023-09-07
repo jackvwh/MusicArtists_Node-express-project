@@ -1,5 +1,4 @@
 // import 'dotenv/config'
-import artistCard from '../components/cards/artistCard.js';
 import { showArtist } from '../helpers/artists.helpers.js';
 import getGenres from '../helpers/getGenres.js';
 import getLabels from '../helpers/getLabels.js';
@@ -108,7 +107,6 @@ export async function deleteArtist(id) {
 
 // set favorite artists
 export async function favoriteArtist(artist) {
-    console.log('favoriteArtist');
     let favorite
         if (artist.favorite) { 
              favorite = false;

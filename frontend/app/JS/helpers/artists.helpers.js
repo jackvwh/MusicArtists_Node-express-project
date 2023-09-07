@@ -6,7 +6,6 @@ const genreCodes = [ {"Rap": "rap"}, {"Pop": "pop"}, {"Rock": "rock"}, {"Reggae"
 const labelCodes = [ {"XL Recordings": "xlRecordings"}, {"Columbia Records": "columbiaRecords"}, {"Def Jam Recordings": "defJamRecordings"}, {"Roc Nation": "rocNation"}, {"RBMG": "rbmg"}, {"OVO Sound": "ovoSound"}, {"Parkwood Entertainment": "parkwoodEntertainment"}, {"Top Dawg Entertainment": "topDawgEntertainment"}, {"Interscope Records": "interscopeRecords"}, {"Atlantic Records": "atlanticRecords"}, {"Asylum Records": "asylumRecords"} ]
 
 export async function refreshArtistsList(event) {
-    console.log('refreshArtistsList');
     let favorites = false;
     // if event is undefined, then we are loading the page - grundet kald fra andre moduler uden event
     if ( event !== undefined ) {
@@ -27,7 +26,7 @@ export function showArtist(artist) {
     document.querySelector("#artist-grid").insertAdjacentHTML("afterbegin", artistCard(artist)); 
     document
         .querySelector("#artist-grid article:first-child .btn-delete-artist")
-        .addEventListener("click", () => deleteArtist(artist));
+        .addEventListener("click", () => deleteArtist(artist.id));
     document
         .querySelector("#artist-grid article:first-child .btn-update-artist")
         .addEventListener("click", () => selectArtist(artist));
@@ -38,7 +37,6 @@ export function showArtist(artist) {
 
 // Purpose: Select artist to update
 export function selectArtist(artist) {
-    console.log("selectArtist");
     // open dialog form
     artistFormUpdate();
     // Set global variable

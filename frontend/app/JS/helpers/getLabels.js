@@ -16,7 +16,7 @@ export default function getLabels() {
         "Atlantic Records": document.querySelector("#atlanticRecords").checked,
         "Asylum Records": document.querySelector("#asylumRecords").checked,
     }
-    // save checked genres and labels in arrays
+    // save checked labels in array as strings
     for (const label in labelValues) {
         if (labelValues[label]) {
             labels.push(label);

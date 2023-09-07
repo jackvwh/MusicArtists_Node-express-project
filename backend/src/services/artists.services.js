@@ -1,15 +1,12 @@
 import fs from 'fs/promises'; 
 
 export async function readArtists_db(){
-    console.log('read artists from db');
     const artists = await fs.readFile('./local_db/artists.json');
     const artistsJson = JSON.parse(artists);
     return artistsJson;
 }
 
 export async function createArtist_db(newArtist){
-    console.log('create artist in db');
-
     const artists = await fs.readFile('./local_db/artists.json');   
     const artistsJson = JSON.parse(artists);
 
@@ -20,11 +17,10 @@ export async function createArtist_db(newArtist){
 }
 
 export async function updateArtist_db(updatedArtist){
-    console.log('update artist in db');
 
     const artists = await fs.readFile('./local_db/artists.json');
     const artistsJson = JSON.parse(artists);
-    console.log(updatedArtist);
+
     const artistToUpdate = artistsJson.find(artist => artist.id === updatedArtist.id);
     const index = artistsJson.indexOf(artistToUpdate);
     artistsJson.splice(index, 1, updatedArtist);
@@ -35,7 +31,6 @@ export async function updateArtist_db(updatedArtist){
 }
 
 export async function deleteArtist_db(artistId){
-    console.log('delete artist in db');
 
     const artists = await fs.readFile('./local_db/artists.json');
     const artistsJson = JSON.parse(artists);

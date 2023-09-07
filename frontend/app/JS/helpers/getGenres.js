@@ -21,7 +21,7 @@ export default function getGenres() {
         "Classical": document.querySelector("#classical").checked,
     }
     
-    // save only checked genres in array
+    // save only checked genres in array as strings
     for (const genre in genreValues) {
         if (genreValues[genre]) {
             genres.push(genre);
