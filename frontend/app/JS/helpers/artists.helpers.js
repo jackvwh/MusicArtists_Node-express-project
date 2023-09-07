@@ -1,6 +1,7 @@
-import { artistFormUpdate } from "../components/forms/artist-form-update.js";
 import artistCard from "../components/cards/artistCard.js";
 import { deleteArtist, favoriteArtist, readAllArtists } from "../services/artists.services.js";
+import { artistFormCreate } from "../components/forms/artist-form-create.js";
+import { artistFormUpdate } from "../components/forms/artist-form-update.js";
 
 const genreCodes = { Rap:"rap", Pop:"pop", Rock:"rock", Reggae:"reggae", "R&B":"rnb", "Hip-Hop":"hipHop", Country:"country", Jazz:"jazz", Blues:"blues", Electronic:"electronic", Latin:"latin", Folk:"folk", Classical:"classical", Metal:"metal", Soul:"soul" };
 
@@ -23,6 +24,25 @@ export function showAllArtists(list) {
     }
 }
 
+export function openArtistForm(formType) {
+    document.querySelector("#dialog").innerHTML = "";
+
+    if (formType === "create") {
+        document.querySelector("#dialog").insertAdjacentHTML("afterbegin", artistFormCreate());
+        document.querySelector("#artist-form").addEventListener("submit", createArtist);
+        
+    }
+    else if (formType === "update") {
+        document.querySelector("#dialog").insertAdjacentHTML("afterbegin", artistFormUpdate());
+        document.querySelector("#artist-form").addEventListener("submit", updateArtist);
+    }
+    document.querySelector("#btn-close").addEventListener("click", () => {
+        document.querySelector("#dialog").close();
+    }
+    );
+    document.querySelector("#dialog").showModal();
+}
+
 export function showArtist(artist) {
     document.querySelector("#artist-grid").insertAdjacentHTML("afterbegin", artistCard(artist)); 
     document
@@ -40,7 +60,7 @@ export function showArtist(artist) {
 export function selectArtist(artist) {
     console.log("selectArtist");
     // open dialog form
-    artistFormUpdate();
+    openArtistForm("update");
     // Set global variable
     const form = document.querySelector("#artist-form");
     // set artist values in form

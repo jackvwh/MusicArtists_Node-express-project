@@ -1,8 +1,6 @@
-import { updateArtist } from "../../services/artists.services.js";
 
 export function artistFormUpdate() {
-    document.querySelector("#dialog").innerHTML = "";
-    document.querySelector("#dialog").insertAdjacentHTML("afterbegin", /*html*/ `
+    const artistFormUpdate =  /*html*/ `
             <h2>Create Artist</h2>
             <form id="artist-form">   
                 <label for="name">Name</label>
@@ -139,14 +137,6 @@ export function artistFormUpdate() {
                 <button type="submit">Submit</button>
                 <button type="button" id="btn-close">Close</button>
             </form>
-    `);
-
-    document.querySelector("#btn-close").addEventListener("click", () => {
-        document.querySelector("#dialog").innerHTML = "";
-        document.querySelector("#dialog").close();
-    }
-    );
-    document.querySelector("#artist-form").addEventListener("submit", updateArtist);
-
-    document.querySelector("#dialog").showModal();
+    `;
+   return artistFormUpdate;
 }

@@ -1,8 +1,6 @@
-import { createArtist } from "../../services/artists.services.js";
 
 export function artistFormCreate() {
-    document.querySelector("#dialog").innerHTML = "";
-    document.querySelector("#dialog").insertAdjacentHTML("afterbegin", /*html*/ `
+    const artistFormCreate = /*html*/ `
             <h2>Create Artist</h2>
             <form id="artist-form">   
                 <label for="name">Name</label>
@@ -138,14 +136,6 @@ export function artistFormCreate() {
                 <button type="submit">Submit</button>
                 <button type="button" id="btn-close">Close</button>
             </form>
-    `);
-
-    document.querySelector("#btn-close").addEventListener("click", () => {
-        document.querySelector("#dialog").innerHTML = "";
-        document.querySelector("#dialog").close();
-    }
-    );
-    document.querySelector("#artist-form").addEventListener("submit", createArtist);
-    
-    document.querySelector("#dialog").showModal();
+    `;
+    return artistFormCreate;
 }
