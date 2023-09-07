@@ -47,7 +47,7 @@ export function selectArtist(artist) {
     form.id = artist.id;
     form.name.value = artist.name;
     form.birthdate.value = artist.birthdate;
-    // form.activeSince.value = artist.activeSince;
+    form.activeSince.value = artist.activeSince;
     form.image.value = artist.image;    
     form.shortDescription.value = artist.shortDescription;
     form.website.value = artist.website;

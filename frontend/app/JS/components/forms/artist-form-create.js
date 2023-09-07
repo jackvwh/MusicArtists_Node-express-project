@@ -14,8 +14,8 @@ export function artistFormCreate() {
                 <label for="birthdate">Birthdate</label>
                 <input type="date" name="birthdate" id="birthdate" required>
 
-                <label for="activeSince">Active Since</label>
-                <input type="date" name="activeSince" id="activeSince" required>
+                <label for="activeSince">Active Since (Year)</label>
+                <input type="text" name="activeSince" id="activeSince" required>
 
                 <label for="shortDescription">Description</label>
                 <input type="text" name="shortDescription" id="shortDescription" required>
