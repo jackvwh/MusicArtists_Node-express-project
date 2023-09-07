@@ -2,16 +2,27 @@ import { createArtist_db, deleteArtist_db, readArtists_db, updateArtist_db } fro
 
 export async function readAllArtists(req, res){
     console.log('readAllArtists');
+    // get query parameter
+    const favorite = req.query.favorite
+    console.log(favorite);
+
     const artists = await readArtists_db();
-    artists.sort((a, b) => a.name.localeCompare(b.name));
-    res.send(artists);
+
+    if (favorite === "true"){
+        console.log( 'filtering');
+        const filteredArtists = artists.filter(artist => artist.favorite === true).sort((a, b) => a.name.localeCompare(b.name)) ;
+        res.send(filteredArtists);
+    } else {
+        artists.sort((a, b) => a.name.localeCompare(b.name));
+        res.send(artists);
+    }
 }
 
 export async function createArtist(req, res){
     console.log('createArtist');
 
     const newArtist = req.body;
-    newArtist.id = Date.now(); 
+
     const artist = await createArtist_db(newArtist);
 
     res.json(artist);
@@ -20,8 +31,7 @@ export async function createArtist(req, res){
 export async function updateArtist(req, res){
     console.log('updateArtist');
 
-    const artistId = req.params.id;
-    const id = parseInt(artistId);
+    const id = parseInt(req.params.id);
 
     const updatedArtist = req.body;
     updatedArtist.id = id;
@@ -33,9 +43,11 @@ export async function updateArtist(req, res){
 
 export async function deleteArtist(req, res){
     console.log('deleteArtist');
-    const artistId = req.params.id;
-    const id = parseInt(artistId);
 
+    console.log(req.params.id);
+    const id = Number(req.params.id);
+
+    console.log(id);
     const artist = await deleteArtist_db(id);
 
     res.json(artist);

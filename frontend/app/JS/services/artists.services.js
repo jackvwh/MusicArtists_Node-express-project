@@ -1,5 +1,5 @@
 // import 'dotenv/config'
-import { refreshFavoriteArtistsList, showArtist } from '../helpers/artists.helpers.js';
+import { refreshArtistsList, showArtist } from '../helpers/artists.helpers.js';
 import getGenres from '../helpers/getGenres.js';
 import getLabels from '../helpers/getLabels.js';
 
@@ -7,18 +7,17 @@ import getLabels from '../helpers/getLabels.js';
 const endpoint = 'http://localhost:3000';
 
 // read All artists
-export async function readArtists() {
+export async function readAllArtists(favorites) {
     console.log('readArtists');
-    const response = await fetch(`${endpoint}/artists`);
+    const response = await fetch(`${endpoint}/artists${favorites ? '?favorite=true' : ''}`);
     const artists = await response.json();
     return artists;
 }
 
 // read one artist
-export async function readArtist(id) {
+export async function readOneArtist(id) {
     console.log('readArtist');
     const response = await fetch(`${endpoint}/artists/${id}`);
-    console.log(response);
     const artist = await response.json();
     return artist;
 }
@@ -27,7 +26,7 @@ export async function readArtist(id) {
 export async function createArtist(event) {
     console.log("createArtist");
     event.preventDefault();
-
+    
     document.querySelector("#dialog").close();
 
     const name = event.target.name.value;
@@ -37,11 +36,16 @@ export async function createArtist(event) {
     const shortDescription = event.target.shortDescription.value;
     const website = event.target.website.value;
 
+    //get genres and labels in arrays
     const genres = getGenres();
     const labels = getLabels();
     
     // create a new artist
     const newArtist = { name, birthdate, activeSince, image, shortDescription, website, genres, labels};
+    // varible to hold the id of the new artist
+    newArtist.id = Date.now(); 
+    // set favorite to false
+    newArtist.favorite = false
     const userAsJson = JSON.stringify(newArtist);
     const response = await fetch(`${endpoint}/artists`, {
         method: "POST",
@@ -51,11 +55,8 @@ export async function createArtist(event) {
         }
     });
 
-    console.log(response);
-
     if (response.ok) {
-        response.status(200).json({ message: "Artist created successfully" });
-        showArtist(newArtist.name);
+        showArtist(newArtist);
     }
 }
 
@@ -66,6 +67,7 @@ export async function updateArtist(event) {
 
     document.querySelector("#dialog").close();
 
+    const id = event.target.id;
     const name = event.target.name.value;
     const birthdate = event.target.birthdate.value;
     const activeSince = event.target.activeSince.value;
@@ -76,21 +78,19 @@ export async function updateArtist(event) {
     const genres = getGenres();
     const labels = getLabels();
 
-    // update user
-    const userToUpdate = { name, birthdate, activeSince, image, shortDescription, website, genres, labels};
-    const userAsJson = JSON.stringify(userToUpdate);
+    // update artist
+    const newArtist = { name, birthdate, activeSince, image, shortDescription, website, genres, labels, id};
 
-    const response = await fetch(`${endpoint}/artists/${event.target.id}`, {
+    const response = await fetch(`${endpoint}/artists/${id}`, {
         method: "PUT",
-        body: userAsJson,
+        body: JSON.stringify(newArtist),
         headers: {
             "Content-Type": "application/json"
         }
     });
 
     if (response.ok) {
-        response.status(200).json({ message: "Artist updated successfully" });
-        showArtist(event.target.id);
+        showArtist(newArtist);
     }
 }
 
@@ -101,14 +101,13 @@ export async function deleteArtist(id) {
         method: "DELETE"
     });
     if (response.ok) {
-        response.status(200).json({ message: "Artist deleted successfully" });
         document.querySelector(`#${id}`).remove();
+        refreshArtistsList();
     }
 }
 
 
-
-// favorite artists
+// set favorite artists
 export async function favoriteArtist(artist) {
     console.log('favoriteArtist');
         if (artist.favorite) {
@@ -120,12 +119,13 @@ export async function favoriteArtist(artist) {
                 }
             });
             if (response.ok) {
-                response.status(200).json({ message: "Artist removed to favourites" });
-                refreshFavoriteArtistsList();
+        
+            }
+            else {
+                console.log( "Artist not removed from favourites" );
             }
         }
         else{
-
             const response = await fetch(`${endpoint}/artists/${artist.id}`, {
                 method: "PUT",
                 body: JSON.stringify({ ...artist, favorite: true}),
@@ -134,9 +134,12 @@ export async function favoriteArtist(artist) {
                 }
             });
             if (response.ok) {
-                response.status(200).json({ message: "Artist added to favourites" });
-                refreshFavoriteArtistsList();
+
             }
-        }
-    
+            else {
+                console.log( "Artist not added to favourites" );
+            }
+        }  
 }
+
+

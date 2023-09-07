@@ -147,5 +147,6 @@ export function artistFormCreate() {
     }
     );
     document.querySelector("#artist-form").addEventListener("submit", createArtist);
+    
     document.querySelector("#dialog").showModal();
 }
