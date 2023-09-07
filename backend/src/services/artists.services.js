@@ -15,7 +15,7 @@ export async function createArtist_db(newArtist){
 
     artistsJson.push(newArtist);
     fs.writeFile('./local_db/artists.json', JSON.stringify(artistsJson));
-
+    
     return newArtist;
 }
 

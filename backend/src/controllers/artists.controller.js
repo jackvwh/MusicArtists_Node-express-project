@@ -10,21 +10,18 @@ export async function readAllArtists(req, res){
 
     if (favorite === "true"){
         console.log( 'filtering');
-        const filteredArtists = artists.filter(artist => artist.favorite === true).sort((a, b) => a.name.localeCompare(b.name)) ;
+        const filteredArtists = artists.filter(artist => artist.favorite === true).sort((a, b) => a.name.localeCompare(b.name)).reverse(); // reverse to show latest first - grundet afterbegin insertAdjacentHTML
         res.send(filteredArtists);
     } else {
-        artists.sort((a, b) => a.name.localeCompare(b.name));
+        artists.sort((a, b) => a.name.localeCompare(b.name)).reverse();
         res.send(artists);
     }
 }
 
 export async function createArtist(req, res){
     console.log('createArtist');
-
     const newArtist = req.body;
-
     const artist = await createArtist_db(newArtist);
-
     res.json(artist);
 }
 

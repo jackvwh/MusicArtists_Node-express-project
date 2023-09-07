@@ -1,5 +1,3 @@
-import { deleteArtist, favoriteArtist } from "../../services/artists.services.js";
-import { selectArtist } from "../../helpers/artists.helpers.js";
 
 function createStarSVG() {
     return /*html*/ `
@@ -21,9 +19,8 @@ function createStarSVG() {
 
 export default function artistCard(artist){
 
-    document.querySelector("#artist-grid").insertAdjacentHTML(
-        "beforeend", /*html*/ `
-        <article id="${artist.id}">
+    const artistCard = /*html*/ `
+          <article id="${artist.id}">
             <img src="${artist.image}">
             <h4>${artist.favorite ? createStarSVG() : ""}</h4>
             <h2>Name: ${artist.name}</h2>
@@ -45,15 +42,6 @@ export default function artistCard(artist){
                 <button class="btn-favorite-artist">Favorite</button>
             </div>
         </article>
-    `
-    );
-    document
-        .querySelector("#artist-grid article:last-child .btn-delete-artist")
-        .addEventListener("click", () => deleteArtist(artist));
-    document
-        .querySelector("#artist-grid article:last-child .btn-update-artist")
-        .addEventListener("click", () => selectArtist(artist));
-    document.querySelector("#artist-grid article:last-child .btn-favorite-artist")
-        .addEventListener("click", () => favoriteArtist(artist));
-
+        `;
+    return artistCard;
 }

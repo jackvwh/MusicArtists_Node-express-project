@@ -1,5 +1,6 @@
 // import 'dotenv/config'
-import { refreshArtistsList, showArtist } from '../helpers/artists.helpers.js';
+import artistCard from '../components/cards/artistCard.js';
+import { showArtist } from '../helpers/artists.helpers.js';
 import getGenres from '../helpers/getGenres.js';
 import getLabels from '../helpers/getLabels.js';
 
@@ -96,13 +97,11 @@ export async function updateArtist(event) {
 
 // delete artists
 export async function deleteArtist(id) {
-    console.log('deleteArtist', id);
     const response = await fetch(`${endpoint}/artists/${id}`, {
         method: "DELETE"
     });
     if (response.ok) {
         document.querySelector(`#${id}`).remove();
-        refreshArtistsList();
     }
 }
 
@@ -110,36 +109,23 @@ export async function deleteArtist(id) {
 // set favorite artists
 export async function favoriteArtist(artist) {
     console.log('favoriteArtist');
-        if (artist.favorite) {
-            const response = await fetch(`${endpoint}/artists/${artist.id}`, {
-                method: "PUT",
-                body: JSON.stringify({ ...artist, favorite: false}),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-            if (response.ok) {
-        
-            }
-            else {
-                console.log( "Artist not removed from favourites" );
-            }
+    let favorite
+        if (artist.favorite) { 
+             favorite = false;
         }
         else{
-            const response = await fetch(`${endpoint}/artists/${artist.id}`, {
-                method: "PUT",
-                body: JSON.stringify({ ...artist, favorite: true}),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-            if (response.ok) {
-
-            }
-            else {
-                console.log( "Artist not added to favourites" );
-            }
+             favorite = true;
         }  
+        const response = await fetch(`${endpoint}/artists/${artist.id}`, {
+            method: "PUT",
+            body: JSON.stringify({...artist, favorite:favorite}),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        if (response.ok) {
+            showArtist(artist);
+        }
 }
 
 
