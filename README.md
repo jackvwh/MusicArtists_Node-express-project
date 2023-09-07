@@ -23,11 +23,11 @@ Follow these steps to set up and run the project:
    - **SSH**: `git clone git@github.com:jackvwh/MusicArtists_Node-express-project.git`
    - **HTTPS**: `git clone https://github.com/jackvwh/MusicArtists_Node-express-project.git`
 
-2. Navigate to the project folder in your terminal:
+2. Navigate to the project root folder in your terminal:
 
    cd MusicArtists_Node-express-project
 
-3. Install project dependencies by running:
+3. Install project root dependencies by running:
    
       npm i
 
