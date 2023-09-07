@@ -22,14 +22,11 @@ export async function updateArtist(req, res){
 
     const artistId = req.params.id;
     const id = parseInt(artistId);
-    console.log(id);
 
     const updatedArtist = req.body;
     updatedArtist.id = id;
-    console.log("upArtist", updatedArtist);
 
     const artist = await updateArtist_db(updatedArtist);
-    console.log(artist);
 
     res.json(artist);
 }

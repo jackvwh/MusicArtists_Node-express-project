@@ -28,7 +28,7 @@ export async function createArtist(event) {
     console.log("createArtist");
     event.preventDefault();
 
-    document.querySelector("#dialog").closeModal();
+    document.querySelector("#dialog").close();
 
     const name = event.target.name.value;
     const birthdate = event.target.birthdate.value;
@@ -54,6 +54,7 @@ export async function createArtist(event) {
     console.log(response);
 
     if (response.ok) {
+        response.status(200).json({ message: "Artist created successfully" });
         showArtist(newArtist.name);
     }
 }
@@ -86,6 +87,7 @@ export async function updateArtist(event) {
             "Content-Type": "application/json"
         }
     });
+
     if (response.ok) {
         response.status(200).json({ message: "Artist updated successfully" });
         showArtist(event.target.id);
@@ -104,26 +106,37 @@ export async function deleteArtist(id) {
     }
 }
 
+
+
 // favorite artists
 export async function favoriteArtist(artist) {
     console.log('favoriteArtist');
-    console.log(artist);
-    let favorite = false;
         if (artist.favorite) {
-            favorite = false;
+            const response = await fetch(`${endpoint}/artists/${artist.id}`, {
+                method: "PUT",
+                body: JSON.stringify({ ...artist, favorite: false}),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            if (response.ok) {
+                response.status(200).json({ message: "Artist removed to favourites" });
+                refreshFavoriteArtistsList();
+            }
         }
         else{
-            favorite = true;
+
+            const response = await fetch(`${endpoint}/artists/${artist.id}`, {
+                method: "PUT",
+                body: JSON.stringify({ ...artist, favorite: true}),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            if (response.ok) {
+                response.status(200).json({ message: "Artist added to favourites" });
+                refreshFavoriteArtistsList();
+            }
         }
-    const response = await fetch(`${endpoint}/artists/${artist.id}`, {
-        method: "PUT",
-        body: JSON.stringify({ ...artist, favorite: `${favorite}`}),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
-    if (response.ok) {
-        response.status(200).json({ message: "Artist added to favourites" });
-        refreshFavoriteArtistsList();
-    }
+    
 }
