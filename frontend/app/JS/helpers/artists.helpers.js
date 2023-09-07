@@ -51,9 +51,7 @@ export function selectArtist(artist) {
     form.image.value = artist.image;    
     form.shortDescription.value = artist.shortDescription;
     form.website.value = artist.website;
-   
-   // make a funtion that sets the genres and labels with a for loop looking at the array of genres and labels compared to the genreCodes and labelCodes keys and if match then document.querySelector(`#${genreCodes[genre].value}`).checked = true;
-
+  
     // set genres
     artist.genres.forEach(genre => {
         for (const key in genreCodes) {
