@@ -6,4 +6,4 @@ export default Router()
     .get('/', readAllArtists)
     .post('/', createArtist)
     .put('/:id', updateArtist)
-    .delete('/:id', deleteArtist);
+    .delete('/:id', deleteArtist)
