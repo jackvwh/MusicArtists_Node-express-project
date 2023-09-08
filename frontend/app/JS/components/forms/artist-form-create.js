@@ -1,6 +1,5 @@
-
 export function artistFormCreate() {
-    const artistFormCreate = /*html*/ `
+  const artistFormCreate = /*html*/ `
             <h2>Create Artist</h2>
             <form id="artist-form">   
                 <label for="name">Name</label>
@@ -137,5 +136,5 @@ export function artistFormCreate() {
                 <button type="button" id="btn-close">Close</button>
             </form>
     `;
-    return artistFormCreate;
+  return artistFormCreate;
 }
