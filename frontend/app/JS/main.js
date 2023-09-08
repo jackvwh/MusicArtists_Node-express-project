@@ -6,7 +6,7 @@ function initApp() {
     console.log('initApp');
     refreshArtistsList();
 
-    document.querySelector("#btn-create-artist").addEventListener("click", openArtistForm("create") );
+    document.querySelector("#btn-create-artist").addEventListener("click", () => openArtistForm("create"));
     document.querySelector("#favorite-artists").addEventListener("click", refreshArtistsList);
     document.querySelector("#show-all-artists").addEventListener("click", refreshArtistsList);
 }

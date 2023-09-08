@@ -1,5 +1,5 @@
 import artistCard from "../components/cards/artistCard.js";
-import { deleteArtist, favoriteArtist, readAllArtists } from "../services/artists.services.js";
+import { createArtist, deleteArtist, favoriteArtist, readAllArtists, updateArtist } from "../services/artists.services.js";
 import { artistFormCreate } from "../components/forms/artist-form-create.js";
 import { artistFormUpdate } from "../components/forms/artist-form-update.js";
 
@@ -9,7 +9,7 @@ const labelCodes = { "XL Recordings":"xlRecordings", "Columbia Records":"columbi
 
 export async function refreshArtistsList(event) {
     let favorites = false;
-    // if event is undefined, then we are loading the page - grundet kald fra andre moduler uden event
+    // grundet kald fra andre moduler uden event
     if ( event !== undefined ) {
         favorites = event.target.id === "favorite-artists" ? true : false;
     }
@@ -25,21 +25,25 @@ export function showAllArtists(list) {
 }
 
 export function openArtistForm(formType) {
+    console.log("openArtistForm");
     document.querySelector("#dialog").innerHTML = "";
 
+    console.log(formType);
     if (formType === "create") {
-        document.querySelector("#dialog").insertAdjacentHTML("afterbegin", artistFormCreate());
+        document.querySelector("#dialog").insertAdjacentHTML("beforeend", artistFormCreate());
         document.querySelector("#artist-form").addEventListener("submit", createArtist);
+
         
     }
     else if (formType === "update") {
-        document.querySelector("#dialog").insertAdjacentHTML("afterbegin", artistFormUpdate());
+        document.querySelector("#dialog").insertAdjacentHTML("beforeend", artistFormUpdate());
         document.querySelector("#artist-form").addEventListener("submit", updateArtist);
+
     }
     document.querySelector("#btn-close").addEventListener("click", () => {
         document.querySelector("#dialog").close();
-    }
-    );
+    });
+
     document.querySelector("#dialog").showModal();
 }
 
