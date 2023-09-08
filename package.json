@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "license": "ISC",
   "private": true,
-  "workspaces": [
-    ".",
-    "backend/*"
-  ],
+  "scripts": {
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "postinstall": "cd backend && npm i"
+  },
   "devDependencies": {
     "eslint": "^8.48.0",
     "prettier": "^3.0.3"

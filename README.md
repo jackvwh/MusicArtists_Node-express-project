@@ -23,19 +23,33 @@ Follow these steps to set up and run the project:
    - **SSH**: `git clone git@github.com:jackvwh/MusicArtists_Node-express-project.git`
    - **HTTPS**: `git clone https://github.com/jackvwh/MusicArtists_Node-express-project.git`
 
-## Run backend server
+## Install dependencies
 
-2. Navigate to the "backend" folder in your terminal:
+1. Navigate to the project root folder in your terminal:
 
-3. Install server dependencies by running:
+   ```bash
+   cd MusicArtists_Node-express-project
+   ```
+
+2. Install project dependencies by running:
+
    ```bash
    npm i
+   ```
 
-4. Start the backend server:
+## Run backend server
 
-   - To start the server: `npm start`
-   - To start the server with [nodemon](https://nodemon.io/): `npm run dev`
+4. From root folder - start the backend server:
 
+   - To start the server: 
+   ```bash
+   npm start
+   ```
+
+   - To start the server with [nodemon](https://nodemon.io/): 
+   ```bash
+   npm run dev
+   ```
 ## Run frontend
 
 5. Next, navigate to the "frontend" folder:
