@@ -37,27 +37,22 @@ Follow these steps to set up and run the project:
    npm i
    ```
 
-## Run backend server
+### Run the project in normal mode - runs both server and client
 
-4. From root folder - start the backend server:
-
-   - To start the server: 
-   ```bash
-   npm start
-   ```
-
-   - To start the server with [nodemon](https://nodemon.io/): 
-   ```bash
-   npm run dev
-   ```
-## Run frontend
-
-5. Next, navigate to the "frontend" folder:
+   1.  From the project root folder, run:
 
    ```bash
-   cd frontend
+   npm start #Running both server and client
    ```
 
-6. Launch the frontend using the Live Server extension in Visual Studio Code by right-clicking on the "index.html" file and selecting "Open with Live Server" or by clicking on the "Go Live" button in the bottom right corner of the VS Code window.
+### Run the project in development mode with nodemon 
+   
+   1.  From the project root folder, run:
+
+   ```bash
+   npm run dev #running both server and client
+   ```
+   
+
 
 You are now ready to explore and use the CRUD/REST application for managing music artists. Enjoy your project experience!
