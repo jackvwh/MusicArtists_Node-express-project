@@ -36,13 +36,16 @@ Follow these steps to set up and run the project:
    ```bash
    npm i
    ```
+
+## Run the project
+
 4. From the project root folder, run:
 
    ```bash
    npm start #Running both server and client
    ```
 
- Run the project in development mode with nodemon[https://nodemon.io/]
+### Run the project in development mode with nodemon[https://nodemon.io/]
    
    -  From the project root folder, run:
 
