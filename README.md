@@ -25,29 +25,26 @@ Follow these steps to set up and run the project:
 
 ## Install dependencies
 
-1. Navigate to the project root folder in your terminal:
+2. Navigate to the project root folder in your terminal:
 
    ```bash
    cd MusicArtists_Node-express-project
    ```
 
-2. Install project dependencies by running:
+3. Install project dependencies by running:
 
    ```bash
    npm i
    ```
-
-### Run the project in normal mode - runs both server and client
-
-   1.  From the project root folder, run:
+4. From the project root folder, run:
 
    ```bash
    npm start #Running both server and client
    ```
 
-### Run the project in development mode with nodemon 
+ Run the project in development mode with nodemon[https://nodemon.io/]
    
-   1.  From the project root folder, run:
+   -  From the project root folder, run:
 
    ```bash
    npm run dev #running both server and client
