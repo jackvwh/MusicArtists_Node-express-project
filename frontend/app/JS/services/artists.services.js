@@ -1,14 +1,11 @@
 // import 'dotenv/config'
-import { showArtist } from '../helpers/artists.helpers.js';
-import getGenres from '../helpers/getGenres.js';
-import getLabels from '../helpers/getLabels.js';
+import { getGenreArray, getLabelArray, showArtist } from '../helpers/artists.helpers.js';
 
 // const endpoint = process.env.ENDPOINT_URL;
 const endpoint = 'http://localhost:3000';
 
 // read All artists
 export async function readAllArtists(favorites) {
-    console.log('readArtists');
     const response = await fetch(`${endpoint}/artists${favorites ? '?favorite=true' : ''}`);
     const artists = await response.json();
     return artists;
@@ -16,7 +13,6 @@ export async function readAllArtists(favorites) {
 
 // read one artist
 export async function readOneArtist(id) {
-    console.log('readArtist');
     const response = await fetch(`${endpoint}/artists/${id}`);
     const artist = await response.json();
     return artist;
@@ -24,7 +20,6 @@ export async function readOneArtist(id) {
 
 // create artist
 export async function createArtist(event) {
-    console.log("createArtist");
     event.preventDefault();
     
     document.querySelector("#dialog").close();
@@ -37,15 +32,15 @@ export async function createArtist(event) {
     const website = event.target.website.value;
 
     //get genres and labels in arrays
-    const genres = getGenres();
-    const labels = getLabels();
+    const genres = getGenreArray();
+    const labels = getLabelArray();
     
     // create a new artist
     const newArtist = { name, birthdate, activeSince, image, shortDescription, website, genres, labels};
     // varible to hold the id of the new artist
     newArtist.id = Date.now(); 
     // set favorite to false
-    newArtist.favorite = false
+    newArtist.favorite = false;
     const userAsJson = JSON.stringify(newArtist);
     const response = await fetch(`${endpoint}/artists`, {
         method: "POST",
@@ -62,7 +57,6 @@ export async function createArtist(event) {
 
 // update artist
 export async function updateArtist(event) {
-    console.log('updateArtist');
     event.preventDefault();
 
     document.querySelector("#dialog").close();
@@ -75,8 +69,8 @@ export async function updateArtist(event) {
     const shortDescription = event.target.shortDescription.value;
     const website = event.target.website.value;
 
-    const genres = getGenres();
-    const labels = getLabels();
+    const genres = getGenreArray();
+    const labels = getLabelArray();
 
     // update artist
     const newArtist = { name, birthdate, activeSince, image, shortDescription, website, genres, labels, id};
@@ -104,10 +98,10 @@ export async function deleteArtist(id) {
     }
 }
 
-
 // set favorite artists
 export async function favoriteArtist(artist) {
-    let favorite
+    let favorite;
+    // if artist is favorite, set favorite to false
         if (artist.favorite) { 
              favorite = false;
         }

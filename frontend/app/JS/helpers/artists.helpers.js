@@ -76,7 +76,7 @@ export function selectArtist(artist) {
     form.shortDescription.value = artist.shortDescription;
     form.website.value = artist.website;
   
-    // set genres
+    // set genres to checked if artist has genre
     artist.genres.forEach(genre => {
         for (const key in genreCodes) {
             if (key === genre) {
@@ -84,7 +84,7 @@ export function selectArtist(artist) {
             }
         }
     });
-    // set labels
+    // set labels to checked if artist has label
     artist.labels.forEach(label => {
         for (const key in labelCodes) {
             if (key === label) {
@@ -93,3 +93,33 @@ export function selectArtist(artist) {
         }
     });
 }
+
+// Purpose: Get genres from form and save in array as strings
+export function getGenreArray() {
+
+    const genres = [];
+
+   for (const key in genreCodes) {
+        if (document.querySelector(`#${genreCodes[key]}`).checked) {
+            genres.push(key);
+        }
+    }   
+
+    return genres;
+}
+
+// Purpose: Get labels from form and save in array as strings
+export function getLabelArray() {
+
+    const labels = [];
+  
+   for (const key in labelCodes) {
+        if (document.querySelector(`#${labelCodes[key]}`).checked) {
+            labels.push(key);
+        }
+    }
+
+    return labels;
+}
+
+
