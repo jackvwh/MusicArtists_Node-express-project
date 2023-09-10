@@ -40,10 +40,10 @@ export function artistFormCreate() {
                     </div>
                     <div>
                         <input type="checkbox" name="rnb" id="rnb" >
-                        <label for="r&b">R&B</label>
+                        <label for="rnb">R&B</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="hipHop" id="hipHop" >
+                        <input type="checkbox" name="hiphop" id="hiphop" >
                         <label for="hiphop">Hip-Hop</label>
                     </div>
                     <div>

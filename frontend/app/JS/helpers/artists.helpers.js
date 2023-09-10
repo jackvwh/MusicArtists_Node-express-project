@@ -23,7 +23,7 @@ const genreCodes = {
   Classical: 'classical',
   Metal: 'metal',
   Soul: 'soul',
-  'R&B': 'r&b',
+  'R&B': 'rnb',
   'Hip-Hop': 'hiphop',
 };
 

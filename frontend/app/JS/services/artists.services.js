@@ -79,6 +79,7 @@ export async function createArtist(event) {
   });
 
   if (response.ok) {
+    // show artist
     showArtist(newArtist);
     // add new artist to artists array
     artists.push(newArtist);
@@ -128,6 +129,9 @@ export async function updateArtist(event) {
   });
 
   if (response.ok) {
+    // remove old artist from DOM
+    document.getElementById(id).remove();
+    // show artist
     showArtist(newArtist);
     // find artist in artists array and update
     const artist = artists.find(artist => artist.id === id);
@@ -143,7 +147,7 @@ export async function deleteArtist(id) {
     method: 'DELETE',
   });
   if (response.ok) {
-    document.querySelector(`#${id}`).remove();
+    document.getElementById(id).remove();
     // find artist in artists array and delete
     const artist = artists.find(artist => artist.id === id);
     artists.splice(artists.indexOf(artist), 1);
@@ -168,6 +172,9 @@ export async function favoriteArtist(artist) {
     },
   });
   if (response.ok) {
+    // remove old artist from DOM
+    document.getElementById(artist.id).remove();
+    // show artist
     showArtist(artist);
     // find artist in artists array and update list
     const artistToUpdate = artists.find(artist => artist.id === artist.id);
