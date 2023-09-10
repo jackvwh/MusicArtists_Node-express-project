@@ -2,6 +2,7 @@
 import {
   getGenreArray,
   getLabelArray,
+  refreshArtistsList,
   showArtist,
 } from '../helpers/artists.helpers.js';
 
@@ -81,6 +82,7 @@ export async function createArtist(event) {
   if (response.ok) {
     // show artist
     showArtist(newArtist);
+    scrollToTop();
     // add new artist to artists array
     artists.push(newArtist);
   } else {
@@ -129,13 +131,10 @@ export async function updateArtist(event) {
   });
 
   if (response.ok) {
-    // remove old artist from DOM
-    document.getElementById(id).remove();
-    // show artist
-    showArtist(newArtist);
     // find artist in artists array and update
     const artist = artists.find(artist => artist.id === id);
     artists.splice(artists.indexOf(artist), 1, newArtist);
+    refreshArtistsList(); 
   } else {
     console.log('Error updating artist');
   }
@@ -172,14 +171,16 @@ export async function favoriteArtist(artist) {
     },
   });
   if (response.ok) {
-    // remove old artist from DOM
-    document.getElementById(artist.id).remove();
-    // show artist
-    showArtist(artist);
     // find artist in artists array and update list
     const artistToUpdate = artists.find(artist => artist.id === artist.id);
     artists.splice(artists.indexOf(artistToUpdate), 1, artist);
+    refreshArtistsList();   
   } else {
     console.log('Error updating favorite');
   }
+}
+
+// scroll to top
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
