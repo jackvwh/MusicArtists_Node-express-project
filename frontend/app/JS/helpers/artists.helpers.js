@@ -44,14 +44,19 @@ export async function refreshArtistsList(event) {
   //get fresh list of artists
   const artists = await readAllArtists();
 
-  // grundet kald fra andre moduler uden event
+  // check if event is undefined because of page load
   if (event !== undefined) {
     const id = event.target.id;
     const value = event.target.value;
+
     // get filtered or sorted list of artists
-    if (value === 'all') {
+    if (value === 'all' || id === 'show-all-artists') {
       showAllArtists(artists);
-    } else if (id === 'filter-genre' || id === 'filter-label') {
+    } else if (
+      id === 'filter-genre' ||
+      id === 'filter-label' ||
+      id === 'favorite-artists'
+    ) {
       const filteredArtists = filterArtists(id, value, artists);
       showAllArtists(filteredArtists);
     } else if (id === 'sort-artists') {
@@ -76,14 +81,18 @@ function filterArtists(id, value, artists) {
   if (id === 'filter-genre') {
     filteredArtists = artists.filter(artist => {
       if (artist.genres.includes(value)) {
-        console.log(artist);
         return artist;
       }
     });
   } else if (id === 'filter-label') {
     filteredArtists = artists.filter(artist => {
       if (artist.labels.includes(value)) {
-        console.log(value);
+        return artist;
+      }
+    });
+  } else if (id === 'favorite-artists') {
+    filteredArtists = artists.filter(artist => {
+      if (artist.favorite === true) {
         return artist;
       }
     });
