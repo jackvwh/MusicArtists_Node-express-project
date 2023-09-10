@@ -6,27 +6,15 @@ import {
 } from '../services/artists.services.js';
 
 export async function readAllArtists(req, res) {
-  // get query parameter
-  const favorite = req.query.favorite;
-
   const artists = await readArtists_db();
-
-  if (favorite === 'true') {
-    const filteredArtists = artists
-      .filter(artist => artist.favorite === true)
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .reverse(); // reverse to show latest first - grundet afterbegin insertAdjacentHTML
-
-    res.send(filteredArtists);
-  } else {
-    artists.sort((a, b) => a.name.localeCompare(b.name)).reverse();
-
-    res.send(artists);
-  }
+  res.json(artists);
 }
 
 export async function createArtist(req, res) {
   const newArtist = req.body;
+
+  // add data validation here
+
   const artist = await createArtist_db(newArtist);
 
   res.json(artist);
@@ -34,9 +22,10 @@ export async function createArtist(req, res) {
 
 export async function updateArtist(req, res) {
   const id = parseInt(req.params.id);
-
   const updatedArtist = req.body;
   updatedArtist.id = id;
+
+  // add data validation here
 
   const artist = await updateArtist_db(updatedArtist);
 

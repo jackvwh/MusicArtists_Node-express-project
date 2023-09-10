@@ -1,4 +1,3 @@
-import artistCard from '../components/cards/artistCard.js';
 import {
   createArtist,
   deleteArtist,
@@ -8,14 +7,13 @@ import {
 } from '../services/artists.services.js';
 import { artistFormCreate } from '../components/forms/artist-form-create.js';
 import { artistFormUpdate } from '../components/forms/artist-form-update.js';
+import artistCard from '../components/cards/artistCard.js';
 
 const genreCodes = {
   Rap: 'rap',
   Pop: 'pop',
   Rock: 'rock',
   Reggae: 'reggae',
-  'R&B': 'rnb',
-  'Hip-Hop': 'hipHop',
   Country: 'country',
   Jazz: 'jazz',
   Blues: 'blues',
@@ -25,14 +23,16 @@ const genreCodes = {
   Classical: 'classical',
   Metal: 'metal',
   Soul: 'soul',
+  'R&B': 'r&b',
+  'Hip-Hop': 'hiphop',
 };
 
 const labelCodes = {
+  RBMG: 'rbmg',
   'XL Recordings': 'xlRecordings',
   'Columbia Records': 'columbiaRecords',
   'Def Jam Recordings': 'defJamRecordings',
   'Roc Nation': 'rocNation',
-  RBMG: 'rbmg',
   'OVO Sound': 'ovoSound',
   'Parkwood Entertainment': 'parkwoodEntertainment',
   'Top Dawg Entertainment': 'topDawgEntertainment',
@@ -41,26 +41,75 @@ const labelCodes = {
   'Asylum Records': 'asylumRecords',
 };
 export async function refreshArtistsList(event) {
-  let favorites = false;
+  //get fresh list of artists
+  const artists = await readAllArtists();
+
   // grundet kald fra andre moduler uden event
   if (event !== undefined) {
-    favorites = event.target.id === 'favorite-artists' ? true : false;
+    const id = event.target.id;
+    const value = event.target.value;
+    // get filtered or sorted list of artists
+    if (value === 'all') {
+      showAllArtists(artists);
+    } else if (id === 'filter-genre' || id === 'filter-label') {
+      const filteredArtists = filterArtists(id, value, artists);
+      showAllArtists(filteredArtists);
+    } else if (id === 'sort-artists') {
+      const sortedArtists = sortArtists(value, artists);
+      showAllArtists(sortedArtists);
+    }
+  } else {
+    showAllArtists(artists);
   }
-  const artists = await readAllArtists(favorites);
-  showAllArtists(artists);
 }
 
-export function showAllArtists(list) {
+function showAllArtists(list) {
   document.querySelector('#artist-grid').innerHTML = '';
   for (const artist of list) {
     showArtist(artist);
   }
 }
 
+function filterArtists(id, value, artists) {
+  let filteredArtists = [];
+
+  if (id === 'filter-genre') {
+    filteredArtists = artists.filter(artist => {
+      if (artist.genres.includes(value)) {
+        console.log(artist);
+        return artist;
+      }
+    });
+  } else if (id === 'filter-label') {
+    filteredArtists = artists.filter(artist => {
+      if (artist.labels.includes(value)) {
+        console.log(value);
+        return artist;
+      }
+    });
+  }
+  return filteredArtists;
+}
+
+function sortArtists(value, artists) {
+  let sortedArtists = [];
+
+  if (value === 'z-a') {
+    sortedArtists = artists.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (value === 'a-z') {
+    sortedArtists = artists.sort((a, b) => b.name.localeCompare(a.name));
+  } else if (value === 'activeSince') {
+    sortedArtists = artists.sort((a, b) => a.activeSince - b.activeSince);
+  } else if (value === 'birthdate') {
+    sortedArtists = artists.sort((a, b) => a.birthdate - b.birthdate);
+  }
+
+  return sortedArtists;
+}
+
 export function openArtistForm(formType) {
   document.querySelector('#dialog').innerHTML = '';
-
-  console.log(formType);
+  // check if form is create or update
   if (formType === 'create') {
     document
       .querySelector('#dialog')
@@ -83,6 +132,7 @@ export function openArtistForm(formType) {
   document.querySelector('#dialog').showModal();
 }
 
+// Purpose: Show artist in grid
 export function showArtist(artist) {
   document
     .querySelector('#artist-grid')

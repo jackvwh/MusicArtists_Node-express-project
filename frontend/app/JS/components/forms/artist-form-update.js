@@ -40,11 +40,11 @@ export function artistFormUpdate() {
                     </div>
                     <div>
                         <input type="checkbox" name="rnb" id="rnb" >
-                        <label for="rnb">R&B</label>
+                        <label for="r&b">R&B</label>
                     </div>
                     <div>
                         <input type="checkbox" name="hipHop" id="hipHop" >
-                        <label for="hipHop">Hip-Hop</label>
+                        <label for="hiphop">Hip-Hop</label>
                     </div>
                     <div>
                         <input type="checkbox" name="country" id="country" >

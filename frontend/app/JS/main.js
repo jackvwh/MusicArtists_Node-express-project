@@ -18,4 +18,13 @@ function initApp() {
   document
     .querySelector('#show-all-artists')
     .addEventListener('click', refreshArtistsList);
+  document
+    .querySelector('#filter-genre')
+    .addEventListener('change', refreshArtistsList);
+  document
+    .querySelector('#filter-label')
+    .addEventListener('change', refreshArtistsList);
+  document
+    .querySelector('#sort-artists')
+    .addEventListener('change', refreshArtistsList);
 }

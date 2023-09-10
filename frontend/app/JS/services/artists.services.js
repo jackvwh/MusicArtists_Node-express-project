@@ -8,19 +8,27 @@ import {
 // const endpoint = process.env.ENDPOINT_URL;
 const endpoint = 'http://localhost:3000';
 
-// read All artists
-export async function readAllArtists(favorites) {
-  const response = await fetch(
-    `${endpoint}/artists${favorites ? '?favorite=true' : ''}`
-  );
-  const artists = await response.json();
-  return artists;
+let artists = []; // local cache of artists
+
+// read All artists - also checks if fetching from server is necessary
+export async function readAllArtists() {
+  if (artists.length === 0) {
+    const response = await fetch(`${endpoint}/artists`);
+    artists = await response.json();
+
+    if (response.ok) {
+      return artists;
+    } else {
+      console.log('Error getting artists');
+    }
+  } else {
+    return artists;
+  }
 }
 
 // read one artist
 export async function readOneArtist(id) {
-  const response = await fetch(`${endpoint}/artists/${id}`);
-  const artist = await response.json();
+  const artist = artists.find(artist => artist.id === id);
   return artist;
 }
 
@@ -52,10 +60,15 @@ export async function createArtist(event) {
     genres,
     labels,
   };
-  // varible to hold the id of the new artist
+
+  // add input validation here
+
+  // variable to hold the id of the new artist
   newArtist.id = Date.now();
+
   // set favorite to false
   newArtist.favorite = false;
+
   const userAsJson = JSON.stringify(newArtist);
   const response = await fetch(`${endpoint}/artists`, {
     method: 'POST',
@@ -67,6 +80,10 @@ export async function createArtist(event) {
 
   if (response.ok) {
     showArtist(newArtist);
+    // add new artist to artists array
+    artists.push(newArtist);
+  } else {
+    console.log('Error creating artist');
   }
 }
 
@@ -100,6 +117,8 @@ export async function updateArtist(event) {
     id,
   };
 
+  // add input validation here
+
   const response = await fetch(`${endpoint}/artists/${id}`, {
     method: 'PUT',
     body: JSON.stringify(newArtist),
@@ -110,6 +129,11 @@ export async function updateArtist(event) {
 
   if (response.ok) {
     showArtist(newArtist);
+    // find artist in artists array and update
+    const artist = artists.find(artist => artist.id === id);
+    artists.splice(artists.indexOf(artist), 1, newArtist);
+  } else {
+    console.log('Error updating artist');
   }
 }
 
@@ -120,26 +144,35 @@ export async function deleteArtist(id) {
   });
   if (response.ok) {
     document.querySelector(`#${id}`).remove();
+    // find artist in artists array and delete
+    const artist = artists.find(artist => artist.id === id);
+    artists.splice(artists.indexOf(artist), 1);
+  } else {
+    console.log('Error deleting artist');
   }
 }
 
 // set favorite artists
 export async function favoriteArtist(artist) {
-  let favorite;
   // if artist is favorite, set favorite to false
   if (artist.favorite) {
-    favorite = false;
+    artist.favorite = false;
   } else {
-    favorite = true;
+    artist.favorite = true;
   }
   const response = await fetch(`${endpoint}/artists/${artist.id}`, {
     method: 'PUT',
-    body: JSON.stringify({ ...artist, favorite: favorite }),
+    body: JSON.stringify(artist),
     headers: {
       'Content-Type': 'application/json',
     },
   });
   if (response.ok) {
     showArtist(artist);
+    // find artist in artists array and update list
+    const artistToUpdate = artists.find(artist => artist.id === artist.id);
+    artists.splice(artists.indexOf(artistToUpdate), 1, artist);
+  } else {
+    console.log('Error updating favorite');
   }
 }

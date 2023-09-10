@@ -15,6 +15,53 @@
         <button id="favorite-artists">Favorite Artists</button>
         <button id="show-all-artists">All Artists</button>
         <button id="btn-create-artist">Create Artist</button>
+
+        <div id="sort-filter-container">
+            <label for="filter-genre">Filter Genres</label>
+            <select name="filter-genre" id="filter-genre">
+                <option value="all">All</option>
+                <option value="Rap">Rap</option>
+                <option value="Pop">Pop</option>
+                <option value="R&B">R&B</option>
+                <option value="Rock">Rock</option>
+                <option value="Country">Country</option>
+                <option value="Jazz">Jazz</option>
+                <option value="Metal">Metal</option>
+                <option value="Blues">Blues</option>
+                <option value="Classical">Classical</option>
+                <option value="Reggae">Reggae</option>
+                <option value="Hip-Hop">Hip-Hop</option>
+                <option value="Soul">Soul</option>
+                <option value="Electronic">Electronic</option>
+                <option value="Dance">Dance</option>
+                <option value="Soul">Soul</option>
+            </select>
+    
+            <label for="filter-label">Filter Labels</label>
+            <select name="filter-label" id="filter-label">
+                <option value="all">All</option>
+                <option value="XL Recordings">XL Recordings</option>
+                <option value="Columbia Records">Columbia Records</option>
+                <option value="Def Jam Recordings">Def Jam Recordings</option>
+                <option value="Roc Nation">Roc Nation</option>
+                <option value="RBMG">RBMG</option>
+                <option value="OVO Sound">OVO Sound</option>
+                <option value="Parkwood Entertainment">Parkwood Entertainment</option>
+                <option value="Top Dawg Entertainment">Top Dawg Entertainment</option>
+                <option value="Interscope Records">Interscope Records</option>
+                <option value="Atlantic Records">Atlantic Records</option>
+                <option value="Asylum Records">Asylum Records</option>
+            </select>
+    
+            <label for="sort-artists">Sort Artists</label>
+            <select name="sort-artists" id="sort-artists">
+                <option value="all">All</option>
+                <option value="a-z">Name A-Z</option>
+                <option value="z-a">Name Z-A</option>
+                <option value="activeSince">Active Since</option>
+                <option value="birthdate">Birthdate</option>
+            </select>
+        </div>
     </header>
     <main>        
         <section id="artist-grid" class="grid-container"></section>
