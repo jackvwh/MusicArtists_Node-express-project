@@ -42,7 +42,7 @@ Follow these steps to set up and run the project:
 4. From the project root folder, run:
 
    ```bash
-   npm start #Running both server and client
+   npm start #Runs both server and client
    ```
 
 ### Run the project in development mode with nodemon[https://nodemon.io/]
@@ -50,7 +50,7 @@ Follow these steps to set up and run the project:
    -  From the project root folder, run:
 
    ```bash
-   npm run dev #running both server and client
+   npm run dev #Runs both server and client
    ```
    
 
