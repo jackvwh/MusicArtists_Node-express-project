@@ -9,13 +9,14 @@ import {
 // const endpoint = process.env.ENDPOINT_URL;
 const endpoint = 'http://localhost:3000';
 
-let artists = []; // local cache of artists
+const artists = []; // local cache of artists
 
 // read All artists - also checks if fetching from server is necessary
 export async function readAllArtists() {
   if (artists.length === 0) {
     const response = await fetch(`${endpoint}/artists`);
-    artists = await response.json();
+    const body = await response.json();
+    artists.push(...body);
 
     if (response.ok) {
       return artists;
@@ -134,7 +135,7 @@ export async function updateArtist(event) {
     // find artist in artists array and update
     const artist = artists.find(artist => artist.id === id);
     artists.splice(artists.indexOf(artist), 1, newArtist);
-    refreshArtistsList(); 
+    refreshArtistsList();
   } else {
     console.log('Error updating artist');
   }
@@ -174,7 +175,7 @@ export async function favoriteArtist(artist) {
     // find artist in artists array and update list
     const artistToUpdate = artists.find(artist => artist.id === artist.id);
     artists.splice(artists.indexOf(artistToUpdate), 1, artist);
-    refreshArtistsList();   
+    refreshArtistsList();
   } else {
     console.log('Error updating favorite');
   }
@@ -182,5 +183,5 @@ export async function favoriteArtist(artist) {
 
 // scroll to top
 function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
